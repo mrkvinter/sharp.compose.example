@@ -6,7 +6,7 @@ namespace BlazorApp2.Utils;
 
 public static class RouterCompose
 {
-    public static void Router(ILogger logger, Remembered.ValueRemembered<string> path,
+    public static void Router(ILogger logger, ValueRemembered<string> path,
         NavigationManager navigationManager,
         Func<string, Action> child)
     {

@@ -5,7 +5,7 @@ namespace BlazorApp2.Pages;
 
 public static class AppCompose
 {
-    public static void MainLayout(NavigationManager navigationManager, Remembered.ValueRemembered<string> path, Action content)
+    public static void MainLayout(NavigationManager navigationManager, ValueRemembered<string> path, Action content)
     {
         Div(atr => atr.Class("page"), () =>
         {
@@ -16,7 +16,7 @@ public static class AppCompose
         });
     }
 
-    private static void NavBar(NavigationManager navigationManager, Remembered.ValueRemembered<string> path)
+    private static void NavBar(NavigationManager navigationManager, ValueRemembered<string> path)
     {
         Nav(atr => atr.Class("navbar", "navbar-expand-lg", "navbar-light", "bg-light"), () =>
         {
@@ -42,6 +42,7 @@ public static class AppCompose
                     {
                         NavElement(navigationManager, "Home", "", path.Value);
                         NavElement(navigationManager, "Counter", "counter", path.Value);
+                        NavElement(navigationManager, "Global Counter", "counter/global", path.Value);
                         NavElement(navigationManager, "Forecast", "forecast", path.Value);
                     }));
             });

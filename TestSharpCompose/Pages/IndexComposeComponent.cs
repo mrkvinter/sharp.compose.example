@@ -12,6 +12,7 @@ public class IndexComposeComponent : ComposeComponentBase
     protected override void SetContent()
     {
         var uri = Remember.Get(() => NavigationManager.ToBaseRelativePath(NavigationManager.Uri));
+        var globalCounter = Remember.Get(0);
 
         AppCompose.MainLayout(NavigationManager, uri, () =>
             Div(child: () =>
@@ -20,7 +21,8 @@ public class IndexComposeComponent : ComposeComponentBase
                 {
                     "" => Home,
                     "counter" => Counter,
-                    // "forecast" => () => Fetch.FetchData(HttpClient),
+                    "counter/global" => () => GlobalCounter(globalCounter),
+                    "forecast" => () => Fetch.FetchData(HttpClient),
                     _ => Error
                 });
             }));
@@ -29,7 +31,7 @@ public class IndexComposeComponent : ComposeComponentBase
     private static void Home() =>
         Div(child: () =>
         {
-            H1(child: () => Text("Hello from Compose#"));
+            H1(child: () => Text("Hello from Sharp.Compose"));
             Div(child: () => P(child: () => Text("It's simple sharp.compose application")));
         });
 
@@ -42,23 +44,23 @@ public class IndexComposeComponent : ComposeComponentBase
 
             Div(child: () =>
             {
-                Button(attributes: attr =>
-                    {
-                        attr.Class("btn", "btn-primary");
-                        attr.OnClick(() => counter.Value++);
-                    },
-                    child: () => Text($"Counter: {counter.Value}"));
+                Button(() => counter.Value++,
+                    attr => attr.Class("btn", "btn-primary"),
+                    () => Text($"Counter: {counter.Value}"));
             });
         });
 
-    private static void CounterSimple() =>
+    private static void GlobalCounter(ValueRemembered<int> globalCounter) =>
         Div(child: () =>
         {
-            var counter = Remember.Get(0);
-            Text($"Current count: {counter.Value}");
+            H1(child: () => Text("Global Counter"));
 
-            Button(() => counter.Value++, child: () => Text("+"));
-            Button(() => counter.Value--, child: () => Text("-"));
+            Div(child: () =>
+            {
+                Button(() => globalCounter.Value++,
+                    attr => attr.Class("btn", "btn-primary"),
+                    () => Text($"Counter: {globalCounter.Value}"));
+            });
         });
 
     [Compose]

@@ -17,7 +17,12 @@ public abstract class ComposeComponentBase : ComponentBase
 
         Composer.Instance.RecomposeEvent += async () =>
         {
-            Logger.Log(LogLevel.Warning, "Recompose called");
+            var message = $"Recompose called.\n{Environment.StackTrace}";
+            Logger.Log(LogLevel.Information, message);
+            while (Composer.Instance.Composing)
+            {
+                await Task.Yield();
+            }
             await SetParametersAsync(ParameterView.Empty);
         };
     }
