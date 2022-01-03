@@ -28,16 +28,15 @@ public static class AppCompose
                     atr.OnClick(() => navigationManager.NavigateTo("", false));
                 }, () =>
                 {
-                    Span(atr => atr.Class("text-primary"), () => Text("Sharp."));
+                    Strong(child: () =>
+                    {
+                        Span(atr => atr.Class("text-primary"), () => Text("Sharp."));
 
-                    Text("Compose");
+                        Text("Compose");
+                    });
                 });
 
-                Div(atr =>
-                {
-                    atr.Id("navbarNavAltMarkup");
-                    atr.Class("collapse", "navbar-collapse");
-                }, () =>
+                Div(atr => atr.Id("navbarNavAltMarkup").Class("collapse", "navbar-collapse"), () =>
                     Div(atr => atr.Class("navbar-nav"), () =>
                     {
                         NavElement(navigationManager, "Home", "", path.Value);
@@ -51,10 +50,9 @@ public static class AppCompose
 
     private static void NavElement(NavigationManager navigationManager, string label, string path, string currentPath)
     {
-        A(atr =>
-        {
-            atr.Class("nav-link", path == currentPath ? "active" : "");
-            atr.OnClick(() => navigationManager.NavigateTo(path, false));
-        }, () => Text(label));
+        A(atr => atr
+            .Class("nav-link", path == currentPath ? "active" : "")
+            .OnClick(() => navigationManager.NavigateTo(path, false)), 
+            () => Text(label));
     }
 }

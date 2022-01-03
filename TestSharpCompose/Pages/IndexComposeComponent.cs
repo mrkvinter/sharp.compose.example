@@ -53,8 +53,15 @@ public class IndexComposeComponent : ComposeComponentBase
     private static void GlobalCounter(ValueRemembered<int> globalCounter) =>
         Div(child: () =>
         {
+            var inputValue = Remember.Get(() => string.Empty);
             H1(child: () => Text("Global Counter"));
 
+            TextInput(inputValue);
+            
+            Div(child: () =>
+            {
+                P(child: () => Text($"Current value: {inputValue.Value}"));
+            });
             Div(child: () =>
             {
                 Button(() => globalCounter.Value++,
@@ -63,7 +70,7 @@ public class IndexComposeComponent : ComposeComponentBase
             });
         });
 
-    [Compose]
+    [Composable]
     private static void Error() =>
         P(child: () => Text("Sorry, there's nothing at this address."));
 }
