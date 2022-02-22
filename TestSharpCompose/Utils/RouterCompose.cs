@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using SharpCompose.Base;
+using SharpCompose.Base.Remember;
 
 namespace BlazorApp2.Utils;
 
@@ -15,7 +16,7 @@ public static class RouterCompose
 
         void Route(object? sender, LocationChangedEventArgs args)
         {
-            logger.Log(LogLevel.Information, "Route changed");
+            logger.Log(LogLevel.Information, $"Route changed to {args.Location}");
             path.Value = navigationManager.ToBaseRelativePath(args.Location);
         }
 

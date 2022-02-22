@@ -17,26 +17,12 @@ public abstract class ComposeComponentBase : ComponentBase
 
         Composer.Instance.RecomposeEvent += async () =>
         {
-            var message = $"Recompose called.\n{Environment.StackTrace}";
-            Logger.Log(LogLevel.Information, message);
             while (Composer.Instance.Composing)
             {
                 await Task.Yield();
             }
             await SetParametersAsync(ParameterView.Empty);
         };
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        // await Task.Delay(5000);
-        await base.OnInitializedAsync();
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        // await Task.Delay(5000);
-        await base.OnAfterRenderAsync(firstRender);
     }
 
     protected sealed override void BuildRenderTree(RenderTreeBuilder builder)

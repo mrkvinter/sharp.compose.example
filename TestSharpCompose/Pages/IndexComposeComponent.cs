@@ -1,6 +1,7 @@
 ﻿using BlazorApp2.Utils;
 using Microsoft.AspNetCore.Components;
 using SharpCompose.Base;
+using SharpCompose.Base.Remember;
 
 namespace BlazorApp2.Pages;
 
@@ -32,7 +33,7 @@ public class IndexComposeComponent : ComposeComponentBase
         Div(child: () =>
         {
             H1(child: () => Text("Hello from Sharp.Compose"));
-            Div(child: () => P(child: () => Text("It's simple sharp.compose application")));
+            Div(child: () => P(child: () => Text("It's simple sharp.compose application based on BlazorApp")));
         });
 
     private static void Counter() =>
